@@ -4,7 +4,7 @@ import smtplib
 from pyquery import PyQuery
 
 
-class CianReminder:
+class Cian:
     _send_to = None
     _save_to = None
     _flats = {}
@@ -22,7 +22,7 @@ class CianReminder:
         else:
             self._flats = json.loads(f.read())
 
-    def load(self, url):
+    def check(self, url):
         """Loads data form search url and notify about new flats form cian"""
         self._url = url
         self._pq = PyQuery(url=url)
@@ -63,6 +63,6 @@ class CianReminder:
             print "Error: unable to send email: %s" % e
 
 if __name__ == "__main__":
-    cf = CianReminder(email='my@email.com')
-    cf.load('http://www.cian.ru/cat.php?deal_type=1&obl_id=1&metro[0]=31&type=4&room1=1&foot_min=10&only_foot=2&totime=86400')
+    cian = Cian(email='my@email.com')
+    cian.check('http://www.cian.ru/cat.php?deal_type=1&obl_id=1&metro[0]=31&type=4&room1=1&totime=86400')
 
