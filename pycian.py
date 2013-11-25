@@ -25,6 +25,7 @@ class Cian:
     def check(self, url):
         """Check and notify about new flats form cian"""
         self._url = url
+        self._flats = self._new_flats = {}
         self._pq = PyQuery(url=url)
         self._pq('tr[id^=tr_]').each(self._handle_node)
         self._save()
