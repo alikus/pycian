@@ -9,6 +9,7 @@ class CianReminder:
     _save_to = None
     _flats = {}
     _new_flats = {}
+    _url = None
     _pq = None
 
     def __init__(self, email, save_to="/tmp/flats.json", *args, **kwargs):
@@ -23,6 +24,7 @@ class CianReminder:
 
     def load(self, url):
         """Loads data form search url and notify about new flats form cian"""
+        self._url = url
         self._pq = PyQuery(url=url)
         self._pq('tr[id^=tr_]').each(self._handle_node)
         self._save()
@@ -42,12 +44,18 @@ class CianReminder:
         f.close()
 
     def _send_mail(self):
+        if not self._new_flats:
+            return
+
         sender = 'noreply@localhost'
         message = "From: Cian Reminder <%(sender)s>\n"\
             "To: %(email)s\n" \
             "Subject: New flats from cian\n\n" % {'sender': sender, 'email': self._send_to}
+        message += "New flats:\n"
         for fid in self._new_flats:
             message += u"%(address)s: %(url)s\n" % self._new_flats[fid]
+        message += "\n\nView all flats: %s" % self._url
+
         try:
             smtp = smtplib.SMTP('localhost')
             smtp.sendmail(sender, self._send_to, message.encode('utf-8'))
@@ -57,3 +65,4 @@ class CianReminder:
 if __name__ == "__main__":
     cf = CianReminder(email='my@email.com')
     cf.load('http://www.cian.ru/cat.php?deal_type=1&obl_id=1&metro[0]=31&type=4&room1=1&foot_min=10&only_foot=2&totime=86400')
+
