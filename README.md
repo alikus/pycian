@@ -6,5 +6,5 @@ PyCian is a library that provides e-mail notifications about new rental flats fr
 ```
 >>> from pycian import Cian
 >>> cian = Cian(email="my@email.com", save_to="/tmp/cian-flats.json")
->>> cian.check(url=http://www.cian.ru/cat.php?metro[0]=31&minprice=20000&room1=1)
+>>> cian.check(url="http://www.cian.ru/cat.php?metro[0]=31&minprice=20000&room1=1")
 ```
