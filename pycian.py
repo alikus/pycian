@@ -23,7 +23,7 @@ class Cian:
             self._flats = json.loads(f.read())
 
     def check(self, url):
-        """Loads data form search url and notify about new flats form cian"""
+        """Check and notify about new flats form cian"""
         self._url = url
         self._pq = PyQuery(url=url)
         self._pq('tr[id^=tr_]').each(self._handle_node)
@@ -60,7 +60,7 @@ class Cian:
             smtp = smtplib.SMTP('localhost')
             smtp.sendmail(sender, self._send_to, message.encode('utf-8'))
         except smtplib.SMTPException as e:
-            print "Error: unable to send email: %s" % e
+            print "Error. Unable to send email: %s" % e
 
 if __name__ == "__main__":
     cian = Cian(email='my@email.com')
