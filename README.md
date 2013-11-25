@@ -3,6 +3,7 @@
 PyCian is a library that provides e-mail notifications about new rental flats from search engine of www.cian.ru.
 
 ## Using
+Paste below code in script and add to crontab to get notifications.
 ```
 >>> from pycian import Cian
 >>> cian = Cian(email="my@email.com", save_to="/tmp/cian-flats.json")
