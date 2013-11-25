@@ -5,4 +5,4 @@ PyCian is a library that provides e-mail notifications about new rental flats fr
 
 Requirements
 ----
-These libs are required: json, pyquery, smtplib.
+These libs are required: pyquery.
