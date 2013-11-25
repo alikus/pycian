@@ -27,11 +27,11 @@ class Cian:
         self._url = url
         self._flats = self._new_flats = {}
         self._pq = PyQuery(url=url)
-        self._pq('tr[id^=tr_]').each(self._handle_node)
+        self._pq('tr[id^=tr_]').each(self._handle_flat_node)
         self._save()
         self._send_mail()
 
-    def _handle_node(self, index, node):
+    def _handle_flat_node(self, index, node):
         d = self._pq(node)
         fid = d.attr('id').replace('tr_', '')
         address = d.find('td[id$=_metro]').text()
